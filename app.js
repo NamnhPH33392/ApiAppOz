@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import "./models/db.js"; // Kết nối MongoDB
 import userRoutes from "./routes/users.js";
 import authRouter from './routes/auth.js';
+import categoryRoutes from "./routes/categories.js";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use(express.static(path.join(__dirname, "public")));
 // ✅ Routes
 app.use("/api/users", userRoutes);
 app.use('/api/auth', authRouter);
+app.use("/api/categories", categoryRoutes);
 
 // ✅ Test route
 app.get("/", (req, res) => {
