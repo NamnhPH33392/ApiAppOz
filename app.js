@@ -5,16 +5,24 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 import createError from "http-errors";
+import dotenv from "dotenv";
 import "./models/db.js"; // Kết nối MongoDB
+import userRoutes from "./routes/users.js";
+import authRouter from './routes/auth.js';
+
+dotenv.config();
 
 const app = express();
 
-// Cấu hình view (nếu bạn vẫn muốn giữ EJS)
+// ✅ Xử lý đường dẫn (ESM không có __dirname)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// ✅ Cấu hình view EJS (nếu bạn vẫn dùng)
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+// ✅ Middleware
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -22,23 +30,21 @@ app.use(cookieParser());
 app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 
-// ✅ Tạm thời comment các router cũ để không lỗi
-// import indexRouter from './routes/index.js';
-// import usersRouter from './routes/users.js';
-// app.use('/', indexRouter);
-// app.use('/users', usersRouter);
+// ✅ Routes
+app.use("/api/users", userRoutes);
+app.use('/api/auth', authRouter);
 
-// Test route
+// ✅ Test route
 app.get("/", (req, res) => {
   res.send("✅ Server đang chạy và MongoDB đã kết nối!");
 });
 
-// Bắt lỗi 404
+// ✅ Bắt lỗi 404
 app.use((req, res, next) => {
   next(createError(404));
 });
 
-// Xử lý lỗi tổng
+// ✅ Xử lý lỗi tổng
 app.use((err, req, res, next) => {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
