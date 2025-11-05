@@ -16,6 +16,7 @@ import foodRoutes from "./routes/foods.js";
 import cartRoutes from "./routes/cart.js";
 import orderRoutes from "./routes/orders.js";
 import paymentRoutes from "./routes/payment.js";
+import reviewRoutes from "./routes/review.js";
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use("/api/foods", foodRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/order", orderRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/review", reviewRoutes);
 
 // ✅ Test route
 app.get("/", (req, res) => {
