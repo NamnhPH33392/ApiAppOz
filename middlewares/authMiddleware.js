@@ -5,10 +5,11 @@ export const authMiddleware = (req, res, next) => {
   if (!token) return res.status(401).json({ message: "Chưa đăng nhập" });
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || "your_secret_key_here");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     next();
   } catch (err) {
+    console.error(err);
     res.status(403).json({ message: "Token không hợp lệ" });
   }
 };

@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
@@ -12,6 +13,7 @@ import authRouter from './routes/auth.js';
 import categoryRoutes from "./routes/categories.js";
 import restaurantRoutes from "./routes/restaurants.js";
 import foodRoutes from "./routes/foods.js";
+import cartRoutes from "./routes/cart.js";
 
 dotenv.config();
 
@@ -39,6 +41,7 @@ app.use('/api/auth', authRouter);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/restaurants", restaurantRoutes);
 app.use("/api/foods", foodRoutes);
+app.use("/api/cart", cartRoutes);
 
 // ✅ Test route
 app.get("/", (req, res) => {
