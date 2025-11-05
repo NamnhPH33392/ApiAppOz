@@ -11,6 +11,7 @@ import userRoutes from "./routes/users.js";
 import authRouter from './routes/auth.js';
 import categoryRoutes from "./routes/categories.js";
 import restaurantRoutes from "./routes/restaurants.js";
+import foodRoutes from "./routes/foods.js";
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use("/api/users", userRoutes);
 app.use('/api/auth', authRouter);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/foods", foodRoutes);
 
 // ✅ Test route
 app.get("/", (req, res) => {
